@@ -30,21 +30,26 @@ public class Excel {
         XSSFSheet worksheet = studentsSheet.getSheetAt(0);
         // Заголовок
         Row headerRow = worksheet.createRow(0);
+        Cell headerCellSum = headerRow.createCell(1);
+        headerCellSum.setCellValue("Сумма сессий");
         for (int numcell = 0; numcell < json.getStringCheckSessionsMap().size(); numcell++) {
-            Cell headerCell = headerRow.createCell(numcell + 1);
+            Cell headerCell = headerRow.createCell(numcell + 2);
             headerCell.setCellValue(json.getStringCheckSessionsMap().keySet().toArray()[numcell].toString());
         }
         // Записи
         int lastRow = worksheet.getLastRowNum();
         Row row = worksheet.createRow(++lastRow);
         row.createCell(0).setCellValue(LocalDateTime.now().withNano(0).toString());
+        int numCell = 1;
+        int sumSession = 0;
         Iterator it = json.getStringCheckSessionsMap().entrySet().iterator();
-        int numCell = 0;
         while (it.hasNext()) {
             ++numCell;
             Map.Entry<String, CheckSessions> pair = (Map.Entry) it.next();
+            sumSession += pair.getValue().getSessionsCount();
             row.createCell(numCell).setCellValue(pair.getValue().getSessionsCount());
         }
+        row.createCell(1).setCellValue(sumSession);
         in.close();
 
         FileOutputStream out = new FileOutputStream(new File(fullPaths));
