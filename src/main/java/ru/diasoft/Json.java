@@ -29,9 +29,14 @@ public class Json {
         Iterator<Map.Entry<String, String>> iterator = configFileOperation.getMapServer().entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<String, String> pair = iterator.next();
-            try (BufferedReader readerURL = new BufferedReader(new InputStreamReader(new URL(pair.getValue()).openStream()))) {
-                checkSessions = objectMapper.readValue(readerURL, CheckSessions.class);
-                stringCheckSessionsMap.put(pair.getKey(), checkSessions);
+            try {
+                try (BufferedReader readerURL = new BufferedReader(new InputStreamReader(new URL(pair.getValue()).openStream()))) {
+                    checkSessions = objectMapper.readValue(readerURL, CheckSessions.class);
+                    stringCheckSessionsMap.put(pair.getKey(), checkSessions);
+                }
+            } catch (Exception e) {
+                // Заглушка если адрес недоступен
+                stringCheckSessionsMap.put(pair.getKey(), new CheckSessions());
             }
         }
     }
