@@ -5,8 +5,8 @@
          version="4.0">
 
     <servlet>
-        <servlet-name>loadStartup</servlet-name>
-        <servlet-class>ru.diasoft.LoadStartup</servlet-class>
+        <servlet-name>ScheduledStart</servlet-name>
+        <servlet-class>ru.diasoft.ScheduledStart</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
