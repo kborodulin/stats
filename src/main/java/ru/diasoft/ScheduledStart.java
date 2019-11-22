@@ -15,6 +15,8 @@ public class ScheduledStart extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.setProperty("sun.net.client.defaultConnectTimeout", "600000");
+        System.setProperty("sun.net.client.defaultReadTimeout", "600000");
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.scheduleAtFixedRate(new Task(), 0, configFileOperation.getLaunchFrequency(), TimeUnit.MINUTES);
     }
