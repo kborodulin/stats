@@ -1,0 +1,8 @@
+# Сервера
+dmn1 http://sogltominext:8083/menext/manage/checksessions
+dmn2 http://sogltominext:8083/menext/manage/checksessions
+dmn3 http://sogltominext:8083/menext/manage/checksessions
+dmn4 http://sogltominext:8083/menext/manage/checksessions
+
+# Периодичность запуска в минутах (при измененении значения перезапустить сервер приложения)
+1
